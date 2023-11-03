@@ -1,66 +1,23 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Projeto de uma Rede Social para Estudos
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Descrição
+<h4>Sobre</h4>
+   O site permite que o usuário realize o cadastro para desfrutar das ferramentas, sendo elas, gerenciamento do seu plano de estudos, para organizar sua rotina que o ajudará, além de possuir bloco de notas e um fórum onde participam outros usuários para ajudar nos estudos, criando assim, uma interação entre as pessoas.
 
-## About Laravel
+Para que o usuário tenha a facilidade nos estudos, o projeto terá uma ferramenta que criará sua rotina, onde o usuário poderá personalizar ou até mesmo criar, ajudando a ter resiliência no aprendizado e ter uma noção de quanto tempo falta para o vestibular. Para criar a rotina, caso o usuário escolha que o site a construa, perguntas serão feitas e de acordo com as respostas, a sugestão de rotina é gerada, mas pode alterar, caso queira. O site apresenta quais matérias devem ser estudada no dia.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+A ferramenta de anotação será um lugar com pastas personalizadas, com bloco de notas, para que o usuário coloque dúvidas e anotações para revisá-los, ferramentas extras para ajudar a estilizar suas anotações.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+O fórum permite que os usuários se ajudem, assim podem trocar de nível e ganhar insígnias, como forma de incentivo, além de ter professores ajudando dentro do fórum. As redações postadas no fórum, serão corrigidas pela comunidade e professores. O site propõe aos professores divulgação de suas mentorias e ajuda no
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+fórum. O projeto desenvolvido para ser um site com gamificação, fazendo com que o cliente fique ativo.
 
-## Learning Laravel
+## Funcionalidades
+Efetivar cadastro: Esta função permite que o utente efetive o seu cadastro. Através do painel digital do site o cliente poderá navegar pelo sistema e desfrutar das disponibilidades de estudos e das ferramentas do site, logo após o utente inserir suas informações pessoais, assim confirmando o cadastro e o deixando navegar. Dados de entrada: dados de identificação do cliente (E-mail e nome completo) e Senha. (Caso o cliente não tenha cadastro, será necessário realizá-lo). Dados de saída: nome, informação (Cliente).
+Gerenciar Agendamento: Permite que o cliente faça seus agendamentos de matérias de acordo com o vestibular, o próprio site faz o agendamento, o sistema fara perguntas onde será montado o seu calendário de estudos. Dados de entrada: data e horário. Dados de saída: Datas, Matérias e Horários.
+Gerenciar Nível: O sistema ao criar uma conta registrara a conta com o nível 1 (um), para o nível ser aumentado o cliente terá que cumprir com alguns requisitos dentro do sistema e junto à comunidade.
+Gerenciar Recompensas: Permite que o usuário ganhe recompensas como troféus e insígnias a cada conquista feita dentro do site. Dados de entrada: Ajudas na comunidade, fazer as missões Dados de saída: Troféus e insígnias.
+![image](https://github.com/Marcos-Rangel-Zanoni/project-laravel/assets/72946366/8f2af614-6311-4f51-ab87-15a1343b7d57)
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Manual do Usuário
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
-
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
