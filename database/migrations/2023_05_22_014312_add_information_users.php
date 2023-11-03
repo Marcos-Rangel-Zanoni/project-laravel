@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->integer('level')->default(1);
             $table->integer('experiencia')->default(0);
-            $table->text('image')->nullable();
+            $table->text('image');
         });
     }
 

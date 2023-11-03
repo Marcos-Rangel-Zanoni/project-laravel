@@ -12,7 +12,6 @@
     </div>
 @endif
 
-
 <div class="user-calendario">
     <div id="calendar"></div>
 </div>

@@ -4,15 +4,16 @@
     <form id="form-post" enctype="multipart/form-data">
 
         @csrf
-        <h1>Post</h1>
+        <h1>Postagem</h1>
         <textarea id="dadosReset" name="texto" placeholder="Digite seu texto aqui" required></textarea>
 
-        <input type="file" name="imagem">
         <!-- Campo oculto no formulário -->
         <input type="hidden" name="user_id" value="{{ Auth::id() }}">
 
 
-        <button type="submit">Postar</button>
+        <div class="wrap">
+            <button type="submit" class="button">Enviar</button>
+          </div>
     </form>
 
     <!-- Exemplo de exibição de mensagens após a postagem -->
@@ -33,7 +34,7 @@
     @endif
 </div>
 
-<script>
+{{-- <script>
     $(document).ready(function() {
         const addStoreUrl = '/postagem/add';
         const addPullDb = '/postagem/pull'
@@ -122,4 +123,4 @@
         let scHeight = e.target.scHeight;
         textarea.style.height = `${scHeight}px`;
     });
-</script>
+</script> --}}

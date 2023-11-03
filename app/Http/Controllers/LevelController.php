@@ -15,18 +15,34 @@ class LevelController extends Controller
         $this->user = $user;
     }
 
-    public function show()
+    public function gainExperience(Request $request)
     {
-        $user = Auth::user();
-        return view('site.level.show', compact('user'));
-    }
-
-    public function increase()
-    {
-        $user = $this->user->find(Auth::id());
-        $user->level++;
+        $user = auth()->user();
+        $user->experiencia += $request->experiencia_gain;
         $user->save();
 
-        return redirect()->route('level.show');
+        if ($user->experiencia >= $this->getMaxExperienceForLevel($user->level)) {
+            $this->levelUp($user);
+        }
+
+        return response()->json([
+            'level' => $user->level,
+            'experiencia' => $user->experiencia
+        ]);
+    }
+
+    private function getMaxExperienceForLevel($level)
+    {
+        // Lógica para calcular a quantidade máxima de experiência necessária para subir de nível.
+        // Por exemplo, você pode usar uma fórmula ou uma tabela de níveis pré-definida.
+    }
+
+    private function levelUp(User $user)
+    {
+        $user->level++;
+
+        // Outras lógicas de atualização do usuário, se necessário.
+
+        $user->save();
     }
 }

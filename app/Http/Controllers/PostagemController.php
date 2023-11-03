@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Postagem;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Carbon\Carbon;
 
 class PostagemController extends Controller
 {
@@ -24,9 +25,18 @@ class PostagemController extends Controller
         return view('site.postagem.index', compact('postagens', 'user', 'allUsers'));
     }
 
+
     public function pullAdd()
     {
-        $postagems = Postagem::all();
+
+        $postagems = Postagem::with('user')->get();
+
+        $postagems->transform(function ($postagem) {
+            $postagem->dateTime = Carbon::parse($postagem->created_at)->format('d/M/y');
+            return $postagem;
+        });
+
+
         return response()->json($postagems);
     }
 
@@ -66,14 +76,7 @@ class PostagemController extends Controller
         return response()->json($postagem);
     }
 
-    public function increase()
-    {
-        $user = $this->user->find(Auth::id());
-        $user->level++;
-        $user->save();
 
-        return redirect()->route('postagem.index');
-    }
     public function buscarUsuarios()
     {
         $usuarios = User::all(); // Ou qualquer lógica de busca que você precise

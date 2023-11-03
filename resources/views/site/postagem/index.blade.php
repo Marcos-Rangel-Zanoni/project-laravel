@@ -2,54 +2,40 @@
     @include('layouts.layout')
 @endauth
 <div class="carousel-postagem">
-    <div id="album-rotator" style="width: 81rem;">
+    <div id="album-rotator">
         <div id="album-rotator-holder">
-            @foreach ( $allUsers as $allUser)
-                
-            <a target="_top" class="album-item" href="#">
-                <span class="album-details">
-                    <span class="icon"><i class="far fa-at"></i> smpnjn</span>
-                    <span class="title">Click to</span>
-                    <span class="subtitle">Follow</span>
-                    <span class="subtext">{{$allUser->name}}</span>
-                </span>
-            </a>
-            @endforeach
+            @foreach ($allUsers as $allUser)
+                @if ($allUser->id == Auth::user()->id)
+                    @continue
+                @endif
+                <a target="_top" class="album-item" href="#">
+                    <span class="album-details">
+                        <span class="title">{{ $allUser->name }}</span>
 
-            {{-- <a target="_top" class="album-item" href="#">
-                <span class="album-details">
-                    <span class="title">Read the</span>
-                    <span class="subtitle">Tutorial</span>
-                    <span class="subtext">View tutorial for this effect</span>
-                </span>
-            </a>
-            <a target="_top" class="album-item" href="#">
-                <span class="album-details">
-                    <span class="title">Finally</span>
-                    <span class="subtitle">We Go</span>
-                    <span class="subtext">Some text to describe this item</span>
-                </span>
-            </a>
-            <a target="_top" class="album-item" href="#">
-                <span class="album-details">
-                    <span class="title">And</span>
-                    <span class="subtitle">One More</span>
-                    <span class="subtext">Some text to describe this item</span>
-                </span>
-            </a>
-            <a class="album-item" href="#">
-                <span class="album-details">
-                    <span class="title">And</span>
-                    <span class="subtitle">Finally..</span>
-                    <span class="subtext">Some text to describe this item</span>
-                </span>
-            </a> --}}
+                        <div class="user-short-background">
+                            <div class="user-img-short">
+                                <img src="{{ $allUser->image }}" alt="Minha Imagem">
+                            </div>
+                        </div>
+                        <div class="user-short"></div>
+                        <div class="user-moldura-short">
+                            <p class="">{{ $allUser->level }}</p>
+                        </div>
+                        <div class="user-moldura-short-img">
+                            <img src="{{ asset('img/moldura.png') }}" alt="Minha Imagem">
+                        </div>
+                        <span class="subtext">Follow</span>
+                    </span>
+                </a>
+            @endforeach
         </div>
     </div>
 </div>
+
 <script>
-    $(document).ready(function() {
+    ($(document).ready(function() {
         // Faz uma requisição AJAX para buscar os usuários no banco de dados do Laravel
+        // const perfil_user = "/perfil/name" + item.id+ "";
         $.ajax({
             url: '/index', // Substitua pela URL correta da sua rota Laravel
             type: 'GET',
@@ -100,16 +86,128 @@
                 console.log(error); // Exibe o erro ocorrido na requisição AJAX
             }
         });
-    });
+    }))
 </script>
 @include('site.postagem.create')
 
+
+
 <div class="user-post">
-    <div id="post">
-    </div>
+</div>
+<div id="post">
+    <!-- As postagens serão exibidas aqui -->
+
+</div>
 </div>
 
 
+<script>
+    $(window).on('load', function() {
+        const addStoreUrl = '/postagem/store';
+        const addPullDb = '/postagem/pullAdd';
+        const userEndpoint = '/postagem/buscarUsuarios';
+        const formPost = $('#form-post');
+        const dadosReset = $('#dadosReset');
+        const pullContainer = $('#post');
+        const userContainer = $('#user-info');
+
+        formPost.on('submit', function(e) {
+            e.preventDefault();
+            const dadosForm = new FormData(this);
+            envBd(dadosForm);
+            formPost.each(function() {
+                this.reset();
+            });
+        });
+
+        function envBd(dadosForm) {
+            $.ajax({
+                    url: addStoreUrl,
+                    type: 'POST',
+                    data: dadosForm,
+                    dataType: 'json',
+                    contentType: false,
+                    processData: false,
+                })
+                .done(function(response) {
+                    console.log("Success");
+                    loadForm();
+                })
+                .fail(function(error, status) {
+                    console.log("Error");
+                });
+        }
+
+        function loadForm() {
+            $.ajax({
+                    url: addPullDb,
+                    type: 'GET',
+                    dataType: 'json',
+                })
+                .done(function(data) {
+                    console.log('Entrou e carregou os dados');
+                    displayPosts(data);
+                    loadUserInfo(); // Carrega as informações do usuário
+                })
+                .fail(function(xhr, status, error) {
+                    console.error('Erro ao carregar dados', error);
+                });
+        }
+
+        function displayPosts(data) {
+            pullContainer.empty();
+
+            if (data.length === 0) {
+                console.log('Não há comentários');
+            } else {
+                data.reverse().forEach(function(item) {
+                    const pull = $('<div>').addClass('pull');
+                    const pullHeader = $('<div>').addClass('pull-header');
+                    const pullAuthor = $('<div>').addClass('pull-author').append($('<h4>').text(item
+                        .user.name));
+                        const pullImage = $('<div>').addClass('pull-image').append($('<img>').attr('src', item.user.image));
+                            const pullImg = $('<div>').addClass('pull-img');
+                            const pullImgMd = $('<div>').addClass('pull-imgMd').append($('<img>').attr('src', 'img/moldura.png'));
+
+                    const pullLevel = $('<div>').addClass('pull-level').append($('<p>').text(item
+                        .user.level), );
+                    const pullDate = $('<div>').addClass('pull-date').append($('<p>').text(item
+                        .dateTime));
+                    const pullBody = $('<div>').addClass('pull-body').append($('<hr>'), $('<p>').text(item.texto));
+
+                    pull.append(pullHeader, pullAuthor, pullImage, pullImg, pullLevel, pullImgMd, pullBody, pullDate);
+                    pullContainer.append(pull);
+                });
+            }
+        }
+
+        function loadUserInfo() {
+            $.ajax({
+                    url: '/postagem/buscarUsuarios', // Altere o URL para a rota correta
+                    type: 'GET',
+                    dataType: 'json',
+                })
+                .done(function(response) {
+                    console.log('Informações do usuário carregadas com sucesso');
+                    displayUserInfo(response.usuarios);
+                })
+                .fail(function(xhr, status, error) {
+                    console.error('Erro ao obter informações do usuário', error);
+                });
+        }
+
+        // Carregar posts e informações do usuário ao carregar a página
+        loadForm();
+    });
+</script>
+<script>
+    const textarea = document.querySelector('textarea');
+    textarea.addEventListener('keyup', e => {
+        textarea.style.height = "63px";
+        let scHeight = e.target.scHeight;
+        textarea.style.height = `${scHeight}px`;
+    });
+</script>
 
 
 
@@ -237,3 +335,4 @@ void main() {
 
   </script>
 <script src="https://kit.fontawesome.com/48764efa36.js" crossorigin="anonymous"></script>
+

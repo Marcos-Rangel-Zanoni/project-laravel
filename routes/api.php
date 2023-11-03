@@ -14,8 +14,10 @@ use App\Http\Controllers\API\NoteController;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+
 Route::apiResource('notes', NoteController::class);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+

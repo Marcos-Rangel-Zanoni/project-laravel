@@ -6,6 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
 
 
@@ -18,7 +19,8 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('css/main.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('style.scss') }}">
-    <script src="{{asset('js/blocoDeNotas.js')}}" type="module"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+
 
 
     <script src="{{asset('js/carousel.js')}}" type="module"></script>
@@ -50,23 +52,23 @@
                                 <span class="icon">
                                     <ion-icon name="home-outline"></ion-icon>
                                 </span>
-                                <span class="text">Home</span>
+                                <span class="text">Inicio</span>
                             </a>
                         </li>
-                        <li class="list {{ Route::currentRouteName() == 'site.calendar.index' ? 'active' : '' }}">
+                        <li class="list {{ Route::currentRouteName() == 'site.calendar.index' ? 'active' : '' }} ">
                             <a href="{{ Route('site.calendar.index') }}">
                                 <span class="icon">
                                     <ion-icon name="calendar-outline"></ion-icon>
                                 </span>
-                                <span class="text">Calendar</span>
+                                <span class="text">Calendario</span>
                             </a>
                         </li>
-                        <li class="list {{ Route::currentRouteName() == 'notes.index' ? 'active' : '' }}">
+                        <li class="list {{ Route::currentRouteName() == 'notes.index' ? 'active' : '' }} {{ Route::currentRouteName() == 'notes.create' ? 'active' : '' }} {{ Route::currentRouteName() == 'notes.edit' ? 'active' : '' }}">
                             <a href="{{ Route('notes.index') }}">
                                 <span class="icon">
                                     <ion-icon name="document-text-outline"></ion-icon>
                                 </span>
-                                <span class="text">NotePad</span>
+                                <span class="text">Caderno</span>
                             </a>
                         </li>
 
@@ -84,7 +86,7 @@
                                 <span class="icon">
                                     <ion-icon name="person-outline"></ion-icon>
                                 </span>
-                                <span class="text">Login</span>
+                                <span class="text">Perfil</span>
                             </a>
                         </li>
                         <div class="indicator"></div>
@@ -99,20 +101,13 @@
         @auth
             <div class="user">
                 <div class="user-img">
-                    <img src="{{ Auth::user()->image }}" alt="Imagem do usuário">
-                    @auth
-                        <div class="user-lvl">
-                            <a></a>
-                            <a></a>
-                            <a></a>
-                            <a></a>
-                            <a></a>
-                            <a></a>
-                            <a></a>
-                            <a></a>
-                        </div>
-                    @endauth
+                    <img src="@if(Auth::user()->image == null){{ asset('img/icons8-usuário-homem-com-círculo-24.png') }} @else {{ asset(Auth::user()->image) }} @endif" alt="Imagem do usuário">
                 </div>
+                @auth
+                    <div class="user-lvl">
+                        <div style="width: {{ Auth::user()->experiencia}}%; height: 100%; background-color: #c278f5; direction: ltr; border-radius: 15px;"><p>{{Auth::user()->experiencia}}%</p></div>
+                    </div>
+                @endauth
                 @auth
                     <div class="user-name">
                         <div class="user-moldura">

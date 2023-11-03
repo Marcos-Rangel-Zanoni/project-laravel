@@ -2,7 +2,7 @@
 @extends('layouts.layout')
 
 @section('content')
-    <div class="container">
+    <div class="notepad-content">
         <h1>Nova Anotação</h1>
 
         <form action="{{ route('notes.store') }}" method="POST">

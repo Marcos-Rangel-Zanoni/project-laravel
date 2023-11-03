@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+use App\Models\Recompensa;
+use App\Models\User;
 
 class ProfileController extends Controller
 {
@@ -16,6 +18,20 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): View
     {
+        // Obter o usuário autenticado
+        $user = Auth::user();
+
+        // Incrementar a experiência
+        $user->experiencia += 0;
+
+        // Verificar se a experiência atingiu o limite máximo
+        if ($user->experiencia >= 100) {
+
+            $user->level += 1;
+            $user->experiencia = 0;
+        }
+        $request->user()->save();
+
         return view('profile.edit', [
             'user' => $request->user(),
         ]);
@@ -77,5 +93,61 @@ class ProfileController extends Controller
         $request->user()->save();
 
         return Redirect::route('profile.edit');
+    }
+    public function experienciaUser(Request $request)
+    {
+        // Obter o usuário autenticado
+        $user = Auth::user();
+
+        // Incrementar a experiência
+        $user->experiencia += 1;
+
+        // Verificar se a experiência atingiu o limite máximo
+        if ($user->experiencia >= 100) {
+            // Aumentar o nível e redefinir a experiência para zero
+            $user->level += 1;
+            $user->experiencia = 0;
+        }
+        $request->user()->save();
+
+        return Redirect::route('profile.edit');
+    }
+
+    public function incrementarExperiencia(Request $request)
+    {
+        // Obter o usuário autenticado
+        $user = Auth::user();
+
+        // Definir o valor da experiência a ser incrementada
+        $valorExperiencia = 50; // Substitua pelo valor desejado
+
+        // Definir o limite máximo de experiência
+        $limiteExperiencia = 100;
+
+        // Incrementar a experiência
+        $user->experiencia += $valorExperiencia;
+
+        // Verificar se a experiência atingiu o limite máximo
+        if ($user->experiencia >= $limiteExperiencia) {
+            $user->level += 1;
+            $user->experiencia = 0;
+        }
+
+        $request->user()->save();
+
+        // Redirecionar de volta para a página de edição do perfil
+        return Redirect::route('profile.edit');
+    }
+
+    public function store(Request $request)
+    {
+        $user = auth()->user();
+
+        $recompensa = new Recompensa();
+        $recompensa->nome = $request->input('nome');
+        $recompensa->tipo = $request->input('tipo');
+        $recompensa->image = $request->input('image');
+        $recompensa->user_id = Auth::id();
+        $recompensa->save();
     }
 }
